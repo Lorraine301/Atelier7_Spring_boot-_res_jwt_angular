@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestion des Employés</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="home-wrapper">
+  <!-- Background -->
+  <div class="bg-gradient"></div>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <i class="fas fa-users"></i>
+      <span>HR Manager</span>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <div class="home-container">
+    <div class="welcome-card">
+      <div class="card-header">
+        <i class="fas fa-user-tie icon-welcome"></i>
+        <h1>Bienvenue</h1>
+        <p>Application de gestion des employés</p>
+      </div>
+
+      <div class="card-body">
+        <p class="intro-text">
+          Gérez vos employés efficacement et simplement
+        </p>
+
+        <button class="btn-login" (click)="goToLogin()">
+          <i class="fas fa-sign-in-alt"></i>
+          Commencer
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 HR Manager</p>
+  </footer>
+</div>
+</body>
+</html>

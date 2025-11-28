@@ -1,0 +1,243 @@
+// Variables
+$primary-color: #2563eb;
+$primary-hover: #1d4ed8;
+$error-color: #dc2626;
+$text-color: #1f2937;
+$text-muted: #6b7280;
+$border-color: #e5e7eb;
+$bg-light: #f9fafb;
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin input-base {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid $border-color;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: $bg-light;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  }
+
+  &::placeholder {
+    color: #9ca3af;
+  }
+}
+
+.login-container {
+  @include flex-center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 1rem;
+  position: relative;
+
+  // Animation des particules en arrière-plan (optionnel)
+  &::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    top: -100px;
+    left: -100px;
+    animation: float 20s infinite;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    bottom: -80px;
+    right: -80px;
+    animation: float 15s infinite reverse;
+  }
+
+  .logo-container {
+    text-align: center;
+    margin-bottom: 1.5rem;
+
+    .logo {
+      width: 80px;
+      height: 80px;
+      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+      animation: pulse 2s infinite;
+    }
+  }
+
+  h2 {
+    color: $text-color;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+
+  .subtitle {
+    text-align: center;
+    color: $text-muted;
+    margin-bottom: 2rem;
+    font-size: 0.9375rem;
+  }
+
+  form {
+    background: white;
+    padding: 3rem 2.5rem;
+    border-radius: 1.25rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 440px;
+    position: relative;
+    z-index: 1;
+
+    .form-group {
+      margin-bottom: 1.5rem;
+
+      label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: $text-color;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+
+        .input-icon {
+          width: 18px;
+          height: 18px;
+          color: $primary-color;
+        }
+      }
+
+      input {
+        @include input-base;
+      }
+    }
+
+    .forgot-password {
+      text-align: right;
+      margin-bottom: 1.5rem;
+
+      a {
+        color: $primary-color;
+        font-size: 0.875rem;
+        text-decoration: none;
+        transition: color 0.2s;
+
+        &:hover {
+          color: $primary-hover;
+          text-decoration: underline;
+        }
+      }
+    }
+
+    button {
+      width: 100%;
+      padding: 1rem;
+      background: $primary-color;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 0.5rem;
+      box-shadow: 0 4px 6px rgba(37, 99, 235, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+
+      .btn-icon {
+        width: 20px;
+        height: 20px;
+      }
+
+      &:hover {
+        background: $primary-hover;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(37, 99, 235, 0.35);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+
+      &:disabled {
+        background: #9ca3af;
+        cursor: not-allowed;
+        transform: none;
+      }
+    }
+
+    .error {
+      color: $error-color;
+      font-size: 0.875rem;
+      margin-top: 1rem;
+      padding: 0.875rem 1rem;
+      background: rgba(220, 38, 38, 0.08);
+      border-radius: 0.5rem;
+      border-left: 4px solid $error-color;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      .error-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+      }
+    }
+  }
+}
+
+// Animation
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+// Responsive
+@media (max-width: 640px) {
+  .login-container {
+    form {
+      padding: 2rem 1.5rem;
+    }
+
+    h2 {
+      font-size: 1.75rem;
+    }
+  }
+}
