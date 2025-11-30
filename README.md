@@ -61,7 +61,7 @@ Frontend : http://localhost:4200
 
 Backend API : http://localhost:8080
 
-Base de données MySQL : localhost:3306 (employee_db)
+Base de données MySQL : localhost:3307 (employee_db)
 
 ## Lancement en développement sans Docker
 ### Backend
@@ -108,10 +108,8 @@ JwtAuthFilter (Spring) → Valide le token à chaque requête
 
 AuthGuard (Angular) → Protège les routes
 
-## Docker Compose (extrait)
+## Docker Compose 
 ```
-version: "3.8"
-
 services:
 
   database:
@@ -119,14 +117,15 @@ services:
     container_name: mysql-db
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD:
-      MYSQL_DATABASE: employeedb
-      MYSQL_USER: root
-      MYSQL_PASSWORD:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: employee_db
     ports:
       - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    networks:
+      - app-network
 
   backend:
     build: ./employee-api
@@ -135,24 +134,34 @@ services:
     depends_on:
       - database
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/employee_db
+      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/employee_db?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD:
+      SPRING_DATASOURCE_PASSWORD: ""
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
     ports:
       - "8080:8080"
+    networks:
+      - app-network
 
   frontend:
     build: ./employee-app
     container_name: angular-frontend
     restart: always
-    ports:
-      - "4200:80"
     depends_on:
       - backend
+    environment:
+      API_URL: http://backend:8080  # Angular peut contacter le backend par le nom du service
+    ports:
+      - "4200:4200"
+    networks:
+      - app-network
 
 volumes:
   mysql_data:
+
+networks:
+  app-network:
+    driver: bridge
 
 ```
 ## Conclusion
