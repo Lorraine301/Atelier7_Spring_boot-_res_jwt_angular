@@ -1,16 +1,14 @@
-# 1. Build Angular
-FROM node:20 AS build
+FROM node:20
+
 WORKDIR /app
 
 COPY package*.json ./
 RUN npm install --legacy-peer-deps
 
 COPY . .
-RUN npm run build --configuration=production
 
-# 2. NGINX pour servir Angular
-FROM nginx:1.25
-COPY --from=build /app/dist/* /usr/share/nginx/html
+# Expose le port Angular
+EXPOSE 4200
 
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# Lance Angular en mode dev et écoute sur toutes les interfaces
+CMD ["npm", "start", "--", "--host", "0.0.0.0"]
